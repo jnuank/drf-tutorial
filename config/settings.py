@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from datetime import timedelta
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -39,12 +40,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'djoser',
+    'corsheaders',
 
     'apiv1.apps.Apiv1Config',
     'shop.apps.ShopConfig',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,6 +56,13 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# CORS
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:8080',
+    'http://127.0.0.1:8080',
+)
 
 ROOT_URLCONF = 'config.urls'
 
@@ -133,5 +143,5 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',),
-    'ACCESS_TOKEN_LIFETIME': timedelta((minutes=30),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
 }
