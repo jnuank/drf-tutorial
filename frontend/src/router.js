@@ -36,7 +36,6 @@ router.beforeEach((to, from, next) => {
             // まだ認証用トークンが残っていればユーザ情報を再取得
             if (token != null) {
                 console.log('User is not logged in. Trying to reload again.')
-
                 store.dispatch('auth/reload')
                     .then(() => {
                         // 再取得できたらそのまま次へ
